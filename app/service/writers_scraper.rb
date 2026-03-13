@@ -23,10 +23,10 @@ class WritersScraper
     raise MultiplePostError if target_posts.length > 1
 
     text_post = target_posts.first.inner_html.gsub(/[\n\r]/,'').strip.split('- ')
-    writer_item = text_post.find { |item| item.match?(/^[Ww]riter:/) }
+    writer_item = text_post.find { |item| item.match?(/^[Ww]riter/) }
     raise WriterSectionNotFoundError unless writer_item
 
-    writer_html = writer_item.sub(/^[Ww]riter:\s*/, '')
+    writer_html = writer_item.sub(/^[Ww]riter\s*/, '')
     writer_html_decoded = CGI.unescapeHTML(writer_html)
     writer_doc = Nokogiri::HTML(writer_html_decoded)
     writer_usernames = writer_doc.css('a.username').map(&:text)
