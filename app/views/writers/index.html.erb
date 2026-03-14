@@ -1,0 +1,48 @@
+<h1>AtCoderWriter勝率計算機</h1>
+
+<%= form_with url: nil, method: :get, id: "win-rate-form", local: false do |f| %>
+  <div style="margin-bottom: 10px;">
+    <%= f.label :writer_name, "Writer" %>
+    <%= f.text_field :writer_name, placeholder: "例: Nyaan", required: true %>
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <%= f.label :user_name, "User" %>
+    <%= f.text_field :user_name, placeholder: "例: tagokoro", required: true %>
+  </div>
+
+  <div style="margin-bottom: 10px;">
+    <%= f.label :contest_type, "Contest Type" %>
+    <%= f.select :contest_type, ["ABC", "ARC", "AGC"] %>
+  </div>
+
+  <%= f.submit "Calculate", id: "calculate-btn" %>
+<% end %>
+
+<div id="result" style="margin-top: 20px; font-size: 24px; font-weight: bold;"></div>
+
+<script>
+document.getElementById('win-rate-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const writerName = document.querySelector('[name="writer_name"]').value;
+  const userName = document.querySelector('[name="user_name"]').value;
+  const contestType = document.querySelector('[name="contest_type"]').value;
+
+  const resultDiv = document.getElementById('result');
+  resultDiv.textContent = 'Loading...';
+
+  try {
+    const response = await fetch(`/writers/${writerName}/win_rate?user_name=${userName}&contest_type=${contestType}`);
+    const data = await response.json();
+
+    if (data.error) {
+      resultDiv.textContent = `Error: ${data.error}`;
+    } else {
+      resultDiv.textContent = `勝率: ${data.win_rate}%`;
+    }
+  } catch (error) {
+    resultDiv.textContent = `Error: ${error.message}`;
+  }
+});
+</script>
