@@ -33,7 +33,7 @@ document.getElementById('win-rate-form').addEventListener('submit', async functi
   resultDiv.textContent = 'Loading...';
 
   try {
-    const response = await fetch(`/writers/${writerName}/win_rate?user_name=${userName}&contest_type=${contestType}`);
+    const response = await fetch(`/writers/win_rate?writer_name=${writerName}&user_name=${userName}&contest_type=${contestType}`);
     const data = await response.json();
 
     if (data.error) {

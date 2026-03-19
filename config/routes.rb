@@ -5,9 +5,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :writers, only: [:index], param: :writer_name do
-      member do
-        get :win_rate, to: 'contests#win_rate'
-      end
+    resources :writers, only: [:index] do
+      get :win_rate, on: :collection
     end
 end
