@@ -20,7 +20,7 @@ class ContestsController < ApplicationController
 
   private
   def contest_params
-    params.require(:user).permit(:contest_type, :contest_id)
+    params.require(:contest).permit(:contest_type, :contest_id)
   end
 
   def win_rate_params
