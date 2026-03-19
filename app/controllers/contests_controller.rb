@@ -1,13 +1,4 @@
 class ContestsController < ApplicationController
-  def create
-    contest = Contest.new(contest_params)
-
-    if contest.save
-      render json: contest, status: :created
-    else
-      render json: { errors: contest.errors.full_messages }, status: :unprocessable_entity
-    end
-  end
   def get_latest_contest_id
     type = params[:type]
     contest_id = Contest.latest_id(type: type)
