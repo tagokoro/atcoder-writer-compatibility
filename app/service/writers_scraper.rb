@@ -2,12 +2,9 @@ require 'net/http'
 require 'nokogiri'
 require 'cgi'
 
-class ScrapeError < StandardError; end
-class PostNotFoundError < ScrapeError; end
-class MultiplePostError < ScrapeError; end
-class WriterSectionNotFoundError < ScrapeError; end
-
 class WritersScraper
+  include ScrapeErrors
+
   def initialize(contest)
     @contest = contest
   end
