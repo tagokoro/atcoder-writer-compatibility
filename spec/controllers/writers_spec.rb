@@ -14,16 +14,16 @@ RSpec.describe WritersController, type: :request do
 
     context '正常系' do
       it '勝率が返される' do
-        stub_request(:get, "https://atcoder.jp/users/tagokoro/history/json")
+        stub_request(:get, 'https://atcoder.jp/users/tagokoro/history/json')
           .to_return(
             status: 200,
             body: [
-              { "ContestScreenName" => "abc100", "OldRating" => 1000, "NewRating" => 1100 }
+              { 'ContestScreenName' => 'abc100', 'OldRating' => 1000, 'NewRating' => 1100 }
             ].to_json,
             headers: { 'Content-Type' => 'application/json' }
           )
 
-        get "/writers/win_rate", params: { writer_name: 'test_writer', user_name: 'tagokoro', contest_type: 'ABC' }
+        get '/writers/win_rate', params: { writer_name: 'test_writer', user_name: 'tagokoro', contest_type: 'ABC' }
 
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)
@@ -33,7 +33,7 @@ RSpec.describe WritersController, type: :request do
 
     context '異常系' do
       it '存在しないwriterが入力されるとエラーが返される' do
-        get "/writers/win_rate", params: { writer_name: 'unknown_writer', user_name: 'tagokoro', contest_type: 'ABC' }
+        get '/writers/win_rate', params: { writer_name: 'unknown_writer', user_name: 'tagokoro', contest_type: 'ABC' }
 
         expect(response).to have_http_status(:bad_request)
         json = JSON.parse(response.body)
@@ -41,14 +41,14 @@ RSpec.describe WritersController, type: :request do
       end
 
       it '存在しないuserが入力されると勝率0が返される' do
-        stub_request(:get, "https://atcoder.jp/users/tagokoro/history/json")
+        stub_request(:get, 'https://atcoder.jp/users/tagokoro/history/json')
           .to_return(
             status: 200,
             body: [].to_json,
             headers: { 'Content-Type' => 'application/json' }
           )
 
-        get "/writers/win_rate", params: { writer_name: 'test_writer', user_name: 'unknown_user', contest_type: 'ABC' }
+        get '/writers/win_rate', params: { writer_name: 'test_writer', user_name: 'unknown_user', contest_type: 'ABC' }
 
         expect(response).to have_http_status(:ok)
         json = JSON.parse(response.body)

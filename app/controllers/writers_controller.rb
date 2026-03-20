@@ -7,13 +7,14 @@ class WritersController < ApplicationController
     ).calculate
 
     if result.nil?
-      render json: { error: "勝率の計算に失敗しました" }, status: :bad_request
+      render json: { error: '勝率の計算に失敗しました' }, status: :bad_request
     else
       render json: { win_rate: result }
     end
   end
 
   private
+
   def win_rate_params
     params.permit(:writer_name, :user_name, :contest_type)
   end

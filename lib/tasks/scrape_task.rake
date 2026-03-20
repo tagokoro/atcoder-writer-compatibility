@@ -1,19 +1,19 @@
 namespace :scrape_task do
   desc '最新のコンテストWriterを取得'
   task latest: :environment do
-    ["ABC", "ARC", "AGC"].each do |type|
+    %w[ABC ARC AGC].each do |type|
       scrape_latest(type)
     end
   end
 
   desc '過去のコンテストWriterを取得'
   task setup: :environment do
-    puts "=== 初期セットアップ開始 ==="
+    puts '=== 初期セットアップ開始 ==='
 
     contest_ranges = {
-      "ABC" => 1..450,
-      "ARC" => 1..200,
-      "AGC" => 1..70
+      'ABC' => 1..450,
+      'ARC' => 1..200,
+      'AGC' => 1..70
     }
 
     contest_ranges.each do |type, range|
@@ -35,7 +35,7 @@ def scrape_latest(type)
 end
 
 def scrape_and_save(type, contest_id)
-  contest_name = "%s%03d" % [type, contest_id]
+  contest_name = format('%s%03d', type, contest_id)
 
   if Contest.exists?(contest_type: type, contest_id: contest_id)
     puts "#{contest_name}: スキップ（保存済み）"

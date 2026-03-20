@@ -10,32 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_03_12_140142) do
+ActiveRecord::Schema[7.0].define(version: 20_260_312_140_142) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "contests", force: :cascade do |t|
-    t.integer "contest_id"
-    t.string "contest_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'contests', force: :cascade do |t|
+    t.integer 'contest_id'
+    t.string 'contest_type'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "writer_contests", force: :cascade do |t|
-    t.bigint "writer_id", null: false
-    t.bigint "contest_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contest_id"], name: "index_writer_contests_on_contest_id"
-    t.index ["writer_id"], name: "index_writer_contests_on_writer_id"
+  create_table 'writer_contests', force: :cascade do |t|
+    t.bigint 'writer_id', null: false
+    t.bigint 'contest_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['contest_id'], name: 'index_writer_contests_on_contest_id'
+    t.index ['writer_id'], name: 'index_writer_contests_on_writer_id'
   end
 
-  create_table "writers", force: :cascade do |t|
-    t.string "username"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'writers', force: :cascade do |t|
+    t.string 'username'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "writer_contests", "contests"
-  add_foreign_key "writer_contests", "writers"
+  add_foreign_key 'writer_contests', 'contests'
+  add_foreign_key 'writer_contests', 'writers'
 end
