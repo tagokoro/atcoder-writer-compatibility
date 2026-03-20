@@ -16,7 +16,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
       - name: Lint code with RuboCop
-        run: bundle exec rubocup
+        run: bundle exec rubocop
 
   test:
     runs-on: ubuntu-latest
