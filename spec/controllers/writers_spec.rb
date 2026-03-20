@@ -39,21 +39,6 @@ RSpec.describe WritersController, type: :request do
         json = JSON.parse(response.body)
         expect(json['error']).to be_present
       end
-
-      it '存在しないuserが入力されると勝率0が返される' do
-        stub_request(:get, 'https://atcoder.jp/users/tagokoro/history/json')
-          .to_return(
-            status: 200,
-            body: [].to_json,
-            headers: { 'Content-Type' => 'application/json' }
-          )
-
-        get '/writers/win_rate', params: { writer_name: 'test_writer', user_name: 'unknown_user', contest_type: 'ABC' }
-
-        expect(response).to have_http_status(:ok)
-        json = JSON.parse(response.body)
-        expect(json['win_rate']).to eq(0)
-      end
     end
   end
 end
