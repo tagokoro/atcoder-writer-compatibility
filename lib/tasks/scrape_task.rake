@@ -57,11 +57,11 @@ def scrape_and_save(type, contest_id)
   end
 
   puts "#{contest_name}: #{writers.size}人のWriterを保存"
-rescue PostNotFoundError
+rescue ScrapeErrors::PostNotFoundError
   puts "#{contest_name}: 記事が見つかりませんでした"
-rescue WriterSectionNotFoundError
+rescue ScrapeErrors::WriterSectionNotFoundError
   puts "#{contest_name}: Writerセクションがありません"
-rescue MultiplePostError
+rescue ScrapeErrors::MultiplePostError
   puts "#{contest_name}: 記事が複数見つかりました"
 rescue ActiveRecord::RecordInvalid => e
   puts "#{contest_name}: DB保存エラー - #{e.message}"

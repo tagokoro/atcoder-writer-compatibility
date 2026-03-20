@@ -1,15 +1,14 @@
-require 'open-uri'
+require 'net/http'
 require 'json'
 
 class AtcoderApi
-  BASE_URL = 'https://atcoder.jp'
+  BASE_URL = 'https://atcoder.jp'.freeze
 
   def self.fetch_history(username:)
-    # url = "#{BASE_URL}/users/#{username}/history/json"
-    url = 'https://atcoder.jp/users/tagokoro/history/json'
-    response = URI.open(url).read
+    url = URI("#{BASE_URL}/users/#{username}/history/json")
+    response = Net::HTTP.get(url)
     JSON.parse(response)
-  rescue OpenURI::HTTPError, JSON::ParserError => e
+  rescue StandardError => e
     Rails.logger.error "AtCoder API error: #{e.message}"
     []
   end
