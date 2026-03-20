@@ -6,3 +6,27 @@ AllCops:
     - 'db/schema.rb'
     - 'vendor/**/*'
     - 'node_modules/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - 'lib/tasks/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/tasks/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
